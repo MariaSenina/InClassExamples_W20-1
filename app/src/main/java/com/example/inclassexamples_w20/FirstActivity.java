@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class FirstActivity extends AppCompatActivity {
 
@@ -15,8 +16,14 @@ public class FirstActivity extends AppCompatActivity {
         // Before this function, the screen is empty.
         setContentView(R.layout.activity_main);
 
-        Intent nextPage = new Intent(this, SecondActivity.class);
+        EditText editText = findViewById(R.id.inputText);
         Button secondButton = findViewById(R.id.buttonToSecond);
+
+        Intent nextPage = new Intent(this, SecondActivity.class);
+            nextPage.putExtra("name","Bert");
+            nextPage.putExtra("age", 20);
+            nextPage.putExtra("typed", editText.getText().toString());
+
         secondButton.setOnClickListener( click -> startActivity( nextPage ));
 
     }
@@ -41,6 +48,16 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 }
