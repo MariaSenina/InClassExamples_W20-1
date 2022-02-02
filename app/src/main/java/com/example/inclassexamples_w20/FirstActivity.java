@@ -39,7 +39,6 @@ public class FirstActivity extends AppCompatActivity {
         });
 
         myList.setOnItemLongClickListener((p, b, pos, id) -> {
-            System.out.println("HIIII");
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("A Title")
                     .setMessage("Do you want to add stuff?")
