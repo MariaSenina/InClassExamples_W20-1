@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class FirstActivity extends AppCompatActivity {
         // Before this function, the screen is empty.
         setContentView(R.layout.activity_main);
 
-        ListView myList = findViewById(R.id.theListView);
+        Spinner myList = findViewById(R.id.theListView);
 
         MyListAdapter adapter = new MyListAdapter();
         myList.setAdapter(adapter);
@@ -38,19 +40,26 @@ public class FirstActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         });
 
-        myList.setOnItemLongClickListener((p, b, pos, id) -> {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("A Title")
-                    .setMessage("Do you want to add stuff?")
-                    .setPositiveButton("Yes", (click, arg) -> {
-                        elements.add("Hello");
-                        adapter.notifyDataSetChanged();
-                    })
-                    .setNegativeButton("No", (click, arg) -> {})
-                    .setNeutralButton("Maybe", (click, arg) -> {})
-                    .setView(getLayoutInflater().inflate(R.layout.row_layout, null))
-                    .create().show();
-            return true;
+        myList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FirstActivity.this);
+                alertDialogBuilder.setTitle("A Title")
+                        .setMessage("Do you want to add stuff?")
+                        .setPositiveButton("Yes", (click, arg) -> {
+                            elements.add("Hello");
+                            adapter.notifyDataSetChanged();
+                        })
+                        .setNegativeButton("No", (click, arg) -> {})
+                        .setNeutralButton("Maybe", (click, arg) -> {})
+                        .setView(getLayoutInflater().inflate(R.layout.row_layout, null))
+                        .create().show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
     }
 
