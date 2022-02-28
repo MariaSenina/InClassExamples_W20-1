@@ -46,7 +46,7 @@ public class DetailFragment extends Fragment {
 
             if(isTablet) { //both the list and details are on the screen:
                 FragmentExample parent = (FragmentExample)getActivity();
-                parent.deleteMessageId((int)id); //this deletes the item and updates the list
+                //parent.deleteMessageId((int)id); //this deletes the item and updates the list
 
 
                 //now remove the fragment since you deleted it from the database:

@@ -1,6 +1,7 @@
 package com.example.inclassexamples_w20;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,7 +35,23 @@ public class FragmentExample extends AppCompatActivity {
         theList.setAdapter(theAdapter);
         theList.setOnItemClickListener((list, item, position, id) -> {
 
-            //Add fragment loading here from slide 14.
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(ITEM_SELECTED, source.get(position));
+            dataToPass.putInt(ITEM_POSITION, position);
+            dataToPass.putLong(ITEM_ID, id);
+
+            if(isTablet) {
+                DetailFragment detailFragment = new DetailFragment();
+                detailFragment.setArguments(dataToPass);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, detailFragment )
+                        .commit();
+            } else {
+                Intent nextActivity = new Intent(FragmentExample.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass);
+                startActivity(nextActivity);
+            }
 
         });
     }
